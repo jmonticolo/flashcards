@@ -92,7 +92,8 @@ function getIndex(value) {
 
 // ***PREV NEXT BUTTONS***
 function previousCard() {
-  var currentIndex = getIndex(jpContent.innerText)
+  currentValue = jpContent.innerText.split("\n")[0]
+  var currentIndex = getIndex(currentValue)
   if (currentIndex > 0) {
     setCard(currentIndex - 1);
   } else {
@@ -101,7 +102,8 @@ function previousCard() {
 }
 
 function nextCard() {
-  var currentIndex = getIndex(jpContent.innerText)
+  currentValue = jpContent.innerText.split("\n")[0]
+  var currentIndex = getIndex(currentValue)
   if (currentIndex >= 0) {
     if (currentIndex == vocabWords.length - 1) {
       setCard(0);
