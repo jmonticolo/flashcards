@@ -67,18 +67,18 @@ function changeData(type) {
 function setCard(num) {
   newWord = vocabWords[num];
   jpContent.innerHTML = newWord.gsx$jp.$t;
-  if (newWord.gsx$notes_jp.$t == "") {
+  if (newWord.gsx$notesjp.$t == "") {
     divfrStyle.style.paddingTop = "calc(50% - 2.4em)";
     jpContent.innerHTML = newWord.gsx$jp.$t;
   } else {
-    jpContent.innerHTML = newWord.gsx$jp.$t + "<br />" + newWord.gsx$notes_jp.$t;
+    jpContent.innerHTML = newWord.gsx$jp.$t + "<br />" + newWord.gsx$notesjp.$t;
     divfrStyle.style.paddingTop = "calc(50% - 3em)";
   };
-  if (newWord.gsx$notes_fr.$t == "") {
+  if (newWord.gsx$notesfr.$t == "") {
     divfrStyle.style.paddingTop = "calc(50% - 2.4em)";
     frContent.innerHTML = newWord.gsx$fr.$t;
   } else {
-    frContent.innerHTML = newWord.gsx$fr.$t + "<br />" + newWord.gsx$notes_fr.$t;
+    frContent.innerHTML = newWord.gsx$fr.$t + "<br />" + newWord.gsx$notesfr.$t;
     divfrStyle.style.paddingTop = "calc(50% - 3em)";
   };
 }
