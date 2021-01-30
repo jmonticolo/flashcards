@@ -1,0 +1,284 @@
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro';
+@import 'https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy';
+@import 'https://fonts.googleapis.com/css?family=Arvo';
+@import 'https://fonts.googleapis.com/css?family=Buenard';
+@import 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+@import 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css';
+@import 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css';
+@import 'https://cdn.rawgit.com/daneden/animate.css/v3.1.0/animate.min.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+}
+
+wrap{
+  min-height:100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+}
+
+.navbar{
+  box-shadow: 0px 5px 16px -1px rgba(163,163,163,0.4);
+  font-family: 'Sorts Mill Goudy', serif;
+  color: #A78AC3;
+  height: 82px;
+  vertical-align: middle;
+  background-color: white;
+}
+
+.navbar-brand{
+  position: relative;
+  padding: 0 28px 0 15px;
+  font-size: 25px;
+  font-weight:bold;
+  vertical-align: middle;
+  line-height: 80px;
+  letter-spacing: 2px;
+}
+
+.nav li{
+  display:inline;
+  vertical-align: middle;
+}
+
+.navbar-nav li a{
+  font-size: 15px;
+  font-weight:bold;
+  padding: 30px 25px 33px 25px;
+}
+
+.navbar-nav li a:hover{
+  background-color:#d9d9d9;
+  height: 100%;
+}
+
+#navbar-collapse{
+  background-color:white;
+}
+
+.glyphicon-menu-hamburger {
+  padding: 10px 0 10px 0;
+  vertical-align: middle;
+  font-size: 20px;
+  color: #337ab7;
+}
+
+#midrow{
+  margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+}
+
+/* FLASH CARD STYLING */
+
+.container .button-container{
+  text-align: center;
+  /*   margin-top: 10px;   */
+}
+
+.container .button-container button{
+  font-size: 15px;
+}
+
+.container .button-container i{
+  font-size: 25px;
+}
+
+.button-container button {
+  padding: 10px 15px;
+  font-weight: bold;
+  background-color: transparent;
+  border-radius: 5px;
+  color: black;
+}
+
+.button-container {
+  display: block;
+  background: #dbdbdb;
+}
+/*
+.container button:hover {
+  cursor: pointer;
+}
+*/
+.container button:focus {
+  outline:0;
+}
+/*
+.container button.button-active {
+  background-color: gray;
+  color: #374D57;
+}
+*/
+.jp-flag{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 51%;
+  border: 0;
+  width: 2em;
+  height: 2em;
+  font-size: .7em;
+  color: white;
+  background-color:#337ab7;
+}
+
+.fr-flag{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 51%;
+  border: 0;
+  width: 2em;
+  height: 2em;
+  font-size: .7em;
+  color: white;
+  background-color:#2BBE83;
+}
+
+.fr-flag:focus, .jp-flag:focus{
+  outline: 0;
+}
+
+/* entire container, keeps perspective */
+
+.container .flip-container {
+  margin: 0 auto;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
+  transform: perspective(1000px);
+  -ms-transform: perspective(1000px);
+  -moz-transform: perspective(1000px);
+  transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+}
+
+/* flip the pane  */
+.container .flip-container.flipped .flipper, .container .flip-container.flipped .flipper {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.container .flip-container, .front, .back {
+  width: 400px;
+  height: 250px;
+  border-radius: 24px;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 768px) {
+/*
+  .flip-container {
+    margin: 10vh auto;
+  }
+*/
+.flip-container, .front, .back {
+    width: 150vw;
+    height: 80vh;
+  }
+}
+
+.front{
+  text-align: center;
+  font-family: 'Arvo';
+  font-size: 4em;
+  line-height: 1em;
+  padding-top: calc(50% - 1.8em);
+  color: #ffffff;
+/*   border: 1px solid #95A39D; */
+}
+
+.back {
+  text-align: center;
+  font-family: 'Arvo';
+  font-size: 3em;
+  line-height: 1em;
+  padding-top: calc(50% - 3em);
+  color: #ffffff;
+/*   border: 1px solid #95A39D; */
+}
+
+/* flip speed goes here */
+.flipper {
+  -webkit-transition: 0.2s;
+  -webkit-transform-style: preserve-3d;
+  -ms-transition: 0.2s;
+  -moz-transition: 0.2s;
+  transform: perspective(1000px);
+  -moz-transform: perspective(1000px);
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transition: 0.2s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: 0s;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: rotateY(0deg);
+  -moz-transition: 0s;
+  -moz-transform-style: preserve-3d;
+  -moz-transform: rotateY(0deg);
+  -o-transition: 0s;
+  -o-transform-style: preserve-3d;
+  -o-transform: rotateY(0deg);
+  -ms-transition: 0s;
+  -ms-transform-style: preserve-3d;
+  -ms-transform: rotateY(0deg);
+  transition: 0s;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 10px 10px 16px -1px rgba(163,163,163,0.4);
+}
+
+/* front pane, placed above back */
+.front {
+  /* z-index: 2; */
+  /* for firefox 31 */
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  background-color: #337ab7;
+}
+
+/* back, initially hidden pane */
+.back {
+  -webkit-transform: rotateY(-180deg);
+  -moz-transform: rotateY(-180deg);
+  -o-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  background-color: #2BBE83;
+}
+
+.container .refresh, .container .previous, .container .next {
+  border: 0;
+}
+
+.container .refresh:hover, .container .previous:hover, .container .next:hover {
+  border: 0;
+  background-color:#f1f1f1;
+  border-radius: 20%;
+}
