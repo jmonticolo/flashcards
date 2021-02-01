@@ -1,45 +1,51 @@
-changeData("hiragana")
+// loads first page data
+changeData(1)
 var flashcard = document.getElementById('flashcard');
-var divfrStyle = document.getElementById('back');
-var side = "jp"
-var jpContent = document.getElementById('flashcard--content_jp');
-var frContent = document.getElementById('flashcard--content_fr');
-var refreshBtn = document.getElementsByClassName('refresh');
-var previousBtn = document.getElementsByClassName('previous');
-var nextBtn = document.getElementsByClassName('next');
+var divBackStyle = document.getElementById('back');
+var side = "front"
+// var modes = ["", "", ""]
+// var mode = 0
+var frontContent = document.getElementById('flashcard--content_front');
+var backContent = document.getElementById('flashcard--content_back');
+var modesBtn = document.getElementsByClassName('modes')[0];
+var previousBtn = document.getElementsByClassName('previous')[0];
+var nextBtn = document.getElementsByClassName('next')[0];
+var goodBtn = document.getElementsByClassName('good')[0];
+var badBtn = document.getElementsByClassName('bad')[0];
+
+// changeMode()
 
 flashcard.addEventListener('click', flip, false);
+// modesBtn.addEventListener('click', changeMode, false);
+previousBtn.addEventListener('click', previousCard, false);
+nextBtn.addEventListener('click', nextCard, false);
+goodBtn.addEventListener('click', goodAnswer, false);
+badBtn.addEventListener('click', randomCard, false);
 
-for (i = 0; i < refreshBtn.length; i++) {
-   refreshBtn[i].addEventListener('click', function(e) {
-    if (side == "fr") {flip()};
-    e.stopPropagation();
-    e.preventDefault();
-    var randomNum = getRandomInt(0, numVocabWords);
-    setCard(randomNum)
-  }, false);
+/*
+function changeMode() {
+  var modeBtn = document.getElementById('mode');
+  for (let index = 0; index < modes.length; index++) {
+    if (modes[index] === modeBtn.innerText) {
+      if (index === modes.length - 1) {
+        mode = 0;
+      } else {
+        mode = index + 1;
+      }
+    }
+  };
+  modeBtn.innerText = modes[mode];
 }
-
-for (i = 0; i < nextBtn.length; i++) {
-  nextBtn[i].addEventListener('click', function(e) {
-    nextCard()
- }, false);
-}
-
-for (i = 0; i < previousBtn.length; i++) {
-  previousBtn[i].addEventListener('click', function(e) {
-    previousCard()
- }, false);
-}
+*/
 
 function flip() {
-  if (side == "fr") {
-    side = "jp";
+  if (side === "back") {
+    side = "front";
     // hide the text just before flip
-    divfrStyle.style.fontSize = "0em";
+    divBackStyle.style.fontSize = "0em";
   } else {
-    side = "fr";
-    divfrStyle.style.fontSize = "3em";
+    side = "back";
+    divBackStyle.style.fontSize = "3em";
   };
   flashcard.classList.toggle('flipped');
 }
@@ -48,40 +54,40 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function changeData(type) {
-  var page = 1;
-  if (type == "hiragana") {
-    page = 1;
-  } else if (type == "katakana") {
-    page = 2;
-  } else if (type == "kanji") {
-    page = 3;
-  };
+function changeData(page) {
   $.getJSON("https://spreadsheets.google.com/feeds/list/1fNDD5mBppIypEntyz0ITY9ibYD5NbflLzUqjDVYODgU/" + page + "/public/values?alt=json", function(data) {
   vocabWords = data.feed.entry;
   numVocabWords = vocabWords.length;
+  document.title = "Flashcards - " + numVocabWords + " restantes"
   setCard(0)
  });
 }
 
 function setCard(num) {
+  if (vocabWords.length === 0) {return;};
   newWord = vocabWords[num];
-  jpContent.innerHTML = newWord.gsx$jp.$t;
-  if (newWord.gsx$notesjp.$t == "") {
-    divfrStyle.style.paddingTop = "calc(50% - 2.4em)";
-    jpContent.innerHTML = newWord.gsx$jp.$t;
+  var frontWord = newWord.gsx$jp.$t;
+  var frontNotes = newWord.gsx$notesjp.$t;
+  var backWord = newWord.gsx$fr.$t;
+  var backNotes = newWord.gsx$notesfr.$t;
+
+  frontContent.innerHTML = frontWord;
+  if (frontNotes === "") {
+    divBackStyle.style.paddingTop = "calc(50% - 2.4em)";
+    frontContent.innerHTML = frontWord;
   } else {
-    jpContent.innerHTML = newWord.gsx$jp.$t + "<br />" + newWord.gsx$notesjp.$t;
-    divfrStyle.style.paddingTop = "calc(50% - 3em)";
+    frontContent.innerHTML = frontWord + "<br />" + frontNotes;
+    divBackStyle.style.paddingTop = "calc(50% - 3em)";
   };
-  if (newWord.gsx$notesfr.$t == "") {
-    divfrStyle.style.paddingTop = "calc(50% - 2.4em)";
-    frContent.innerHTML = newWord.gsx$fr.$t;
+  if (backNotes === "") {
+    divBackStyle.style.paddingTop = "calc(50% - 2.4em)";
+    backContent.innerHTML = backWord;
   } else {
-    frContent.innerHTML = newWord.gsx$fr.$t + "<br />" + newWord.gsx$notesfr.$t;
-    divfrStyle.style.paddingTop = "calc(50% - 3em)";
+    backContent.innerHTML = backWord + "<br />" + backNotes;
+    divBackStyle.style.paddingTop = "calc(50% - 3em)";
   };
 }
+
 function getIndex(value) {
   for (let index = 0; index < vocabWords.length; index++) {
       if (vocabWords[index].gsx$jp.$t === value) {
@@ -90,9 +96,17 @@ function getIndex(value) {
   };
 }
 
+function randomCard() {
+  if (side === "back") {flip()};
+  if (vocabWords.length === 0) {return;};
+  var randomNum = getRandomInt(0, numVocabWords);
+  setCard(randomNum);
+}
+
 // ***PREV NEXT BUTTONS***
 function previousCard() {
-  currentValue = jpContent.innerText.split("\n")[0]
+  if (vocabWords.length === 0) {return;};
+  currentValue = frontContent.innerText.split("\n")[0]
   var currentIndex = getIndex(currentValue)
   if (currentIndex > 0) {
     setCard(currentIndex - 1);
@@ -102,13 +116,29 @@ function previousCard() {
 }
 
 function nextCard() {
-  currentValue = jpContent.innerText.split("\n")[0]
+  if (vocabWords.length === 0) {return;};
+  currentValue = frontContent.innerText.split("\n")[0]
   var currentIndex = getIndex(currentValue)
   if (currentIndex >= 0) {
-    if (currentIndex == vocabWords.length - 1) {
+    if (currentIndex === vocabWords.length - 1) {
       setCard(0);
     } else {
       setCard(currentIndex + 1);
     };
+  };
+}
+
+function goodAnswer() {
+  if (vocabWords.length === 0) {return;};
+  currentValue = frontContent.innerText.split("\n")[0]
+  var currentIndex = getIndex(currentValue)
+  vocabWords.splice(currentIndex, 1);
+  numVocabWords = vocabWords.length;
+  document.title = "Flashcards - " + numVocabWords + " restantes"
+  if (numVocabWords > 0) {
+    randomCard()
+  } else {
+    frontContent.innerHTML = "Terminé";
+    backContent.innerHTML = "Terminé";
   };
 }

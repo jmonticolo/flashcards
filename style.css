@@ -26,7 +26,7 @@ wrap{
 
 .navbar{
   box-shadow: 0px 5px 16px -1px rgba(163,163,163,0.4);
-  font-family: 'Sorts Mill Goudy', serif;
+  font-family: 'Open Sans', serif;
   color: #A78AC3;
   height: 82px;
   vertical-align: middle;
@@ -118,7 +118,7 @@ wrap{
   color: #374D57;
 }
 */
-.jp-flag{
+.front-flag{
   position: absolute;
   top: 10px;
   right: 10px;
@@ -131,7 +131,7 @@ wrap{
   background-color:#337ab7;
 }
 
-.fr-flag{
+.back-flag{
   position: absolute;
   top: 10px;
   right: 10px;
@@ -144,7 +144,7 @@ wrap{
   background-color:#2BBE83;
 }
 
-.fr-flag:focus, .jp-flag:focus{
+.back-flag:focus, .front-flag:focus{
   outline: 0;
 }
 
@@ -273,12 +273,26 @@ wrap{
   background-color: #2BBE83;
 }
 
-.container .refresh, .container .previous, .container .next {
+.container .refresh, .container .previous, .container .next, .container .good, .container .bad {
   border: 0;
 }
 
 .container .refresh:hover, .container .previous:hover, .container .next:hover {
   border: 0;
+  background-color:#f1f1f1;
+  border-radius: 20%;
+}
+
+.container .good:hover {
+  border: 0;
+  color:#34d60c;
+  background-color:#f1f1f1;
+  border-radius: 20%;
+}
+
+.container .bad:hover {
+  border: 0;
+  color:#ff0000;
   background-color:#f1f1f1;
   border-radius: 20%;
 }
